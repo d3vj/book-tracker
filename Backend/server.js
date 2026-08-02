@@ -5,16 +5,6 @@ const Book = require("./models/Book");
 app.use(express.json());
 const PORT = 3000;
 
-
-const books = [
-  {
-    id: 1,
-    title: "The Stranger",
-    author: "Albert Camus",
-    status: "Finished"
-  }
-]
-
 app.get("/", (req,res) => {
     res.send("Api to track books is running");
 });
