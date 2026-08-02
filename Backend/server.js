@@ -89,9 +89,17 @@ app.put("/books/:id", async (req, res) => {
 });
 
 // DELETE a book
-app.delete('/books/:id', (req, res) => {
-  const bookIndex = books.findIndex(book => book.id === Number(req.params.id));
-  if (bookIndex === -1) return res.status(404).send('Book not found');
-  const deletedBook = books.splice(bookIndex, 1);
-  res.json(deletedBook[0]);
+// DELETE a book
+app.delete('/books/:id', async (req, res) => {
+  const book = await Book.findByPk(req.params.id);
+
+  if (!book) {
+    return res.status(404).json({
+      error: "Book not found"
+    });
+  }
+
+  await book.destroy();
+
+  res.json(book);
 });
